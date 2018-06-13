@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ancely.pick.MainActivity">
+
+    <com.ancely.pick.PickRecycleView
+        android:id="@+id/text_rv4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+       />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="60sp"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/time1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="60sp"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/time2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="60sp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <com.ancely.pick.PickRecycleView
+            android:id="@+id/text_rv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <com.ancely.pick.PickRecycleView
+            android:id="@+id/text_rv2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <com.ancely.pick.PickRecycleView
+            android:id="@+id/text_rv3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
