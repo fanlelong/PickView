@@ -9,7 +9,6 @@ import android.app.Application;
  *  @文件名:   PickApplication
  *  @创建者:   fanlelong
  *  @创建时间:  2018/6/13 上午11:33
- *  @描述：    TODO
  */
 
 public class PickApplication extends Application {

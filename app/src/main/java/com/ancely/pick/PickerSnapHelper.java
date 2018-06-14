@@ -18,7 +18,6 @@ public class PickerSnapHelper extends LinearSnapHelper {
         return findTargetSnapPosition1(layoutManager, velocityX, velocityY);
     }
 
-
     private int findTargetSnapPosition1(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
 
         if (!(layoutManager instanceof RecyclerView.SmoothScroller.ScrollVectorProvider)) {

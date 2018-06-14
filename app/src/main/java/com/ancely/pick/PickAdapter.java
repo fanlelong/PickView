@@ -38,16 +38,19 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+        if (mList == null) {
+            return 0;
+        }
         if (mRecyclerView.getLayoutManager() instanceof PickerLayoutManager) {
             if (((PickerLayoutManager) mRecyclerView.getLayoutManager()).getCycle()) {
                 return mList.size() + mList.size() * mCycleNum;
             }
         }
-        return mList == null ? 0 : mList.size();
+        return mList.size();
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvText;
 
         public ViewHolder(View itemView) {

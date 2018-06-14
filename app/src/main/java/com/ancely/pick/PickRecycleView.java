@@ -95,8 +95,8 @@ public class PickRecycleView extends RecyclerView {
     /**
      * 是否显示后缀
      */
-    public void isShowSuffix(boolean suffixFlag, String suffixString) {
-        this.mIsShowSuffix = suffixFlag;
+    public void isShowSuffix(String suffixString) {
+        this.mIsShowSuffix = true;
         this.mSuffixText = suffixString;
         mTextPaint.getTextBounds(suffixString, 0, suffixString.length(), mTextBound);
     }

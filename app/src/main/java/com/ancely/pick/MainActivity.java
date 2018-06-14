@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTime1;
     private TextView mTime2;
     private List<String> mMonthLists;
-    private PickerLayoutManager mPickerLayoutManager4;
 
 
     @Override
@@ -68,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
         textRv.setRVChildSinglerText("2019");
         textRv2.setRVChildSinglerText("20");
         textRv3.setRVChildSinglerText("20");
-        textRv.isShowSuffix(true, "年");
-        textRv2.isShowSuffix(true, "月");
-        textRv3.isShowSuffix(true, "日");
+        textRv.isShowSuffix("年");
+        textRv2.isShowSuffix("月");
+        textRv3.isShowSuffix("日");
 
         mPickerLayoutManager1 = new PickerLayoutManager(this,
                 textRv, PickerLayoutManager.VERTICAL, false, 3, 0.8f, true, 3);
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mPickerLayoutManager2 = new PickerLayoutManager(this,
                 textRv2, PickerLayoutManager.VERTICAL, false, 3, 0.8f, true, 3);
 
-        mPickerLayoutManager4 = new PickerLayoutManager(this,
+        PickerLayoutManager pickerLayoutManager4 = new PickerLayoutManager(this,
                 textRv4, PickerLayoutManager.VERTICAL, false, 5, 0.8f, true, 3);
 
 
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         textRv.setLayoutManager(mPickerLayoutManager1);
         textRv2.setLayoutManager(mPickerLayoutManager2);
         textRv3.setLayoutManager(mPickerLayoutManager3);
-        textRv4.setLayoutManager(mPickerLayoutManager4);
+        textRv4.setLayoutManager(pickerLayoutManager4);
         PickAdapter pickAdapter = new PickAdapter(mYearLists, textRv);
         PickAdapter pickAdapter2 = new PickAdapter(mMonthLists, textRv2);
         PickAdapter pickAdapter3 = new PickAdapter(mCurrentMonthDays, textRv3);
@@ -134,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         int year = mYearLists.indexOf(String.valueOf(cal.get(Calendar.YEAR)));
         mPickerLayoutManager1.scrollToPosition(year);
-        mPickerLayoutManager4.scrollToPosition(year);
+        pickerLayoutManager4.scrollToPosition(year);
         int month = cal.get(Calendar.MONTH);
         if (month <= 9) {
             month = mMonthLists.indexOf("0" + month) + 1;
@@ -163,6 +162,19 @@ public class MainActivity extends AppCompatActivity {
                 public void onConfigurationChanged(Configuration newConfig) {
                     if (newConfig != null && newConfig.fontScale > 0) {
                         sNoncompatScaleDensity = application.getResources().getDisplayMetrics().scaledDensity;
+                        sNoncompatDensity = metrics.density;
+
+                        final float targetDensity = metrics.widthPixels * 1.0f / 720;
+                        final float targetScanleDensity = targetDensity * (sNoncompatScaleDensity / sNoncompatDensity);
+                        final int targetDensityDpi = (int) (160 * targetDensity);
+                        metrics.density = targetDensity;
+                        metrics.scaledDensity = targetScanleDensity;
+                        metrics.densityDpi = targetDensityDpi;
+
+                        DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
+                        displayMetrics.density = targetDensity;
+                        displayMetrics.scaledDensity = targetScanleDensity;
+                        displayMetrics.densityDpi = targetDensityDpi;
                     }
                 }
 
