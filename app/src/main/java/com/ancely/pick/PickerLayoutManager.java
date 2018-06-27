@@ -4,10 +4,11 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 
 
-public class PickerLayoutManager extends LinearLayoutManager {
+public class PickerLayoutManager extends LinearLayoutManager implements View.OnTouchListener {
 
     private float mScale = 0.5f;
     private boolean mIsAlpha = true;
@@ -16,10 +17,11 @@ public class PickerLayoutManager extends LinearLayoutManager {
     private int mItemViewWidth;
     private int mItemViewHeight;
     private int mItemCount = -1;
-    private RecyclerView mRecyclerView;
+    private PickRecycleView mRecyclerView;
     private int mOrientation;
     private int mPickCount;
     private int mScreenWidth;
+    private int[] mTopAndBottomPathHeight;
 
 
     public PickerLayoutManager(Context context, int orientation, boolean reverseLayout) {
@@ -28,7 +30,7 @@ public class PickerLayoutManager extends LinearLayoutManager {
         this.mOrientation = orientation;
     }
 
-    public PickerLayoutManager(Context context, RecyclerView recyclerView, int orientation, boolean reverseLayout, int itemCount, float scale, boolean isAlpha, int pickCount) {
+    public PickerLayoutManager(Context context, PickRecycleView recyclerView, int orientation, boolean reverseLayout, int itemCount, float scale, boolean isAlpha, int pickCount) {
         super(context, orientation, reverseLayout);
         this.mLinearSnapHelper = new PickerSnapHelper();
         this.mPickCount = pickCount;
@@ -39,9 +41,11 @@ public class PickerLayoutManager extends LinearLayoutManager {
         mScreenWidth = context.getResources().getDisplayMetrics().widthPixels;
         this.mOrientation = orientation;
         this.mRecyclerView = recyclerView;
+        mRecyclerView.setOnTouchListener(this);
         this.mIsAlpha = isAlpha;
         this.mScale = scale;
         if (mItemCount != 0) setAutoMeasureEnabled(false);
+
     }
 
     /**
@@ -91,6 +95,7 @@ public class PickerLayoutManager extends LinearLayoutManager {
         }
     }
 
+
     int getItemViewHeight() {
         return mItemViewHeight;
     }
@@ -136,10 +141,28 @@ public class PickerLayoutManager extends LinearLayoutManager {
         }
     }
 
+    private void scrollTargetPos(View view) {
+        if (mRecyclerView == null) {
+            return;
+        }
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        if (layoutManager == null) {
+            return;
+        }
+        int[] snapDistance = mLinearSnapHelper.calculateDistanceToFinalSnap(layoutManager, view);
+        assert snapDistance != null;
+        if (snapDistance[0] != 0 || snapDistance[1] != 0) {
+            mRecyclerView.smoothScrollBy(snapDistance[0], snapDistance[1]);
+        }
+    }
+
+    private View centerView;
+
     /**
      * 竖向方向上的缩放
      */
     private void scaleVerticalChildView() {
+        centerView = mLinearSnapHelper.findSnapView(this);
         float mid = getHeight() / 2.0f;
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
@@ -148,7 +171,12 @@ public class PickerLayoutManager extends LinearLayoutManager {
             child.setScaleX(scale);
             child.setScaleY(scale);
             if (mIsAlpha) {
-                child.setAlpha(scale);
+                if (child.equals(centerView)) {
+                    child.setAlpha(1.f);
+//                    scrollTargetPos();
+                } else {
+                    child.setAlpha(scale - 0.3f);
+                }
             }
         }
     }
@@ -175,6 +203,24 @@ public class PickerLayoutManager extends LinearLayoutManager {
 
     public void setOnSelectedViewListener(OnSelectedViewListener listener) {
         this.mOnSelectedViewListener = listener;
+    }
+
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+                View view = mLinearSnapHelper.findSnapView(this);
+                assert view != null;
+                if (!view.equals(centerView)) {
+                    scrollTargetPos(view);
+                }
+                break;
+            default:
+
+                break;
+        }
+        return false;
     }
 
     /**

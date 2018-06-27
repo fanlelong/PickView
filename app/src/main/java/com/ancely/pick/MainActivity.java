@@ -161,16 +161,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onConfigurationChanged(Configuration newConfig) {
                     if (newConfig != null && newConfig.fontScale > 0) {
-                        sNoncompatScaleDensity = application.getResources().getDisplayMetrics().scaledDensity;
+                        sNoncompatScaleDensity = metrics.scaledDensity;
                         sNoncompatDensity = metrics.density;
-
                         final float targetDensity = metrics.widthPixels * 1.0f / 720;
                         final float targetScanleDensity = targetDensity * (sNoncompatScaleDensity / sNoncompatDensity);
                         final int targetDensityDpi = (int) (160 * targetDensity);
                         metrics.density = targetDensity;
                         metrics.scaledDensity = targetScanleDensity;
                         metrics.densityDpi = targetDensityDpi;
-
                         DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
                         displayMetrics.density = targetDensity;
                         displayMetrics.scaledDensity = targetScanleDensity;

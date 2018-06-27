@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 public class PickRecycleView extends RecyclerView {
 
@@ -90,6 +91,23 @@ public class PickRecycleView extends RecyclerView {
      */
     public void setRVChildSinglerText(String itemKey) {
         mRvPaint.getTextBounds(itemKey, 0, itemKey.length(), mRvChildBound);
+    }
+
+    public int[] getTopAndBottomPathHeight() {
+        PickerLayoutManager layoutManager = (PickerLayoutManager) getLayoutManager();
+        int[] height = new int[]{0, 0};
+        if (layoutManager != null) {
+            height[0] = (int) (mHeight * 1.0f / 2 - layoutManager.getItemViewHeight() / 2);
+            height[1] = (int) (mHeight * 1.0f / 2 + layoutManager.getItemViewHeight() / 2);
+        }
+        return height;
+    }
+
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent e) {
+        return super.onInterceptTouchEvent(e);
+
     }
 
     /**

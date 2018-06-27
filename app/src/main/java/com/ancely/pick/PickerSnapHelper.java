@@ -16,14 +16,14 @@ public class PickerSnapHelper extends LinearSnapHelper {
     @Override
     public int findTargetSnapPosition(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
         return findTargetSnapPosition1(layoutManager, velocityX, velocityY);
+        //snapToTargetExistingView()
     }
 
-    private int findTargetSnapPosition1(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
 
+    private int findTargetSnapPosition1(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
         if (!(layoutManager instanceof RecyclerView.SmoothScroller.ScrollVectorProvider)) {
             return RecyclerView.NO_POSITION;
         }
-
         final int itemCount = layoutManager.getItemCount();
         if (itemCount == 0) {
             return RecyclerView.NO_POSITION;

@@ -6,53 +6,59 @@
     android:layout_height="match_parent"
     tools:context="com.ancely.pick.MainActivity">
 
+
     <com.ancely.pick.PickRecycleView
+        android:layout_centerHorizontal="true"
         android:id="@+id/text_rv4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-       />
+        android:layout_height="wrap_content"/>
+    <com.ancely.pick.banner.BannerRecycleView
+        android:id="@+id/banner_brv"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@id/text_rv4"
+        android:background="#55ff0000"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dp">
+        android:layout_below="@id/text_rv4"
+        android:layout_marginTop="400dp">
 
         <TextView
-            android:textStyle="bold"
             android:id="@+id/time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="60sp"/>
+            android:textSize="60sp"
+            android:textStyle="bold"/>
 
         <TextView
-            android:textStyle="bold"
             android:id="@+id/time1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="60sp"/>
+            android:textSize="60sp"
+            android:textStyle="bold"/>
 
         <TextView
-            android:textStyle="bold"
             android:id="@+id/time2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="60sp"/>
+            android:textSize="60sp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
